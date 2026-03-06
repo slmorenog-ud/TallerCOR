@@ -14,13 +14,20 @@ public class Main {
         SupportHandler level1 = new Level1SupportHandler();
         SupportHandler level2 = new Level2SupportHandler();
         SupportHandler level3 = new Level3SupportHandler();
+        SupportHandler defaultHandler = new DefaultSupportHandler();
 
         //Construir correctamente la cadena
+        level1.setNextHandler(level2);
+        level2.setNextHandler(level3);
+        level3.setNextHandler(defaultHandler);
 
         Request r1 = new Request(Priority.BASIC);
         Request r2 = new Request(Priority.INTERMEDIATE);
         Request r3 = new Request(Priority.CRITICAL);
 
         // Hacer el procesar de las solicitudes
+        level1.handleRequest(r1);
+        level1.handleRequest(r2);
+        level1.handleRequest(r3);
     }
 }
